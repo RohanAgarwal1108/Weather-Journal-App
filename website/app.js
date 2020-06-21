@@ -17,8 +17,8 @@ const postData=async(url="", data={})=>
         body: JSON.stringify(data),
     });
     try{
-        const newData= await response.json();
-        return newData;
+        const newData1= await response.json();
+        return newData1;
     }
     catch(error)
     {
@@ -31,7 +31,6 @@ const getData=async(url="")=>
     const response=await fetch(url);
     try{
         const newData=await response.json();
-        console.log(newData);
         return newData;
     }
     catch(error){
@@ -47,6 +46,31 @@ function performProcess()
     getData(myUrl)
     .then(function(newData)
     {
-        postData('/postJournalDetails', {weather:newData.weather, feelings:feeling, date:newDate})
+        const temp=newData.main.temp;
+        const data={
+            date:newDate,
+            temp:temp,
+            content:feeling
+        }
+        postData('/postJournalDetails', data);
     })
+    .then(updateUI())
+}
+const updateUI=async()=>
+{
+    const response=await fetch('/getJournalDetails');
+    try{
+        const finalData=response.json();
+        console.log(finalData);
+        const dateDiv=document.querySelector('#date');
+        dateDiv.innerHTML=finalData.date;
+        const tempDiv=document.querySelector('#temp');
+        tempDiv.innerHTML=finalData.temp;
+        const contentDiv=document.querySelector('#content');
+        contentDiv.innerHTML=finalData.content;
+    }
+    catch(error)
+    {
+        console.log("error",error);
+    }
 }
