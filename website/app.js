@@ -54,13 +54,13 @@ function performProcess()
         }
         postData('/postJournalDetails', data);
     })
-    .then(updateUI())
+    .then(()=>updateUI())
 }
 const updateUI=async()=>
 {
     const response=await fetch('/getJournalDetails');
     try{
-        const finalData=response.json();
+        const finalData=await response.json();
         console.log(finalData);
         const dateDiv=document.querySelector('#date');
         dateDiv.innerHTML=finalData.date;

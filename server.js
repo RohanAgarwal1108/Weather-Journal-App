@@ -46,6 +46,5 @@ function postJournal(req,res)
         temp:req.body.temp,
         content:req.body.content
     };
-    res.send({data:projectData,
-    message:"saved"});
+    res.send(projectData);
 }
