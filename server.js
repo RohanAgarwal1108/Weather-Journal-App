@@ -42,5 +42,5 @@ function postJournal(req,res)
 {
     projectData.push(req.body);
     console.log(projectData);
-    response.send("Contwent received");
+    res.send("Content received");
 }
