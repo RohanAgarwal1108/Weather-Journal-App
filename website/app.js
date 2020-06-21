@@ -30,9 +30,9 @@ const getData=async(url="")=>
 {
     const response=await fetch(url);
     try{
-        const data=await response.json();
-        console.log(data);
-        return data;
+        const newData=await response.json();
+        console.log(newData);
+        return newData;
     }
     catch(error){
         console.log("error",error);
@@ -45,8 +45,8 @@ function performProcess()
     const feeling=document.getElementById('feelings').value;
     const myUrl=apiURL+"?q="+zipcode+apiKey;
     getData(myUrl)
-    .then(function(data)
+    .then(function(newData)
     {
-        postData('/postJournalDetails', {weather:data.weather, feelings:feeling, date:newDate})
+        postData('/postJournalDetails', {weather:newData.weather, feelings:feeling, date:newDate})
     })
 }
